@@ -363,11 +363,11 @@ open class CandleStickChartRenderer: LineScatterCandleRadarChartRenderer
                 context.setLineWidth(set.highlightLineWidth)
                 if (set.highlightLineDashLengths != nil)
                 {
-                    CGContextSetLineDash(context, set.highlightLineDashPhase, set.highlightLineDashLengths!, set.highlightLineDashLengths!.count)
+                    context.setLineDash(phase: set.highlightLineDashPhase, lengths: set.highlightLineDashLengths!)
                 }
                 else
                 {
-                    CGContextSetLineDash(context, 0.0, nil, 0)
+                    context.setLineDash(phase: 0.0, lengths: [])
                 }
                 
                 let lowValue = CGFloat(e.low) * animator.phaseY

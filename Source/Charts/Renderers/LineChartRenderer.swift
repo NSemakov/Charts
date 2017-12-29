@@ -136,8 +136,8 @@ open class LineChartRenderer: LineRadarChartRenderer
             if cur == nil || next == nil { return }
             
             // let the spline start
-            CGPathMoveToPoint(cubicPath, &valueToPixelMatrix, CGFloat(cur.xIndex), CGFloat(cur.value) * phaseY)
-            
+            cubicPath.move(to: CGPoint(x: CGFloat(cur.xIndex), y: CGFloat(cur.value) * phaseY), transform: valueToPixelMatrix)
+
             for j in stride(from: (minx + 1), to: min(size, entryCount), by: 1)
             {
                 prevPrev = prev
@@ -219,8 +219,8 @@ open class LineChartRenderer: LineRadarChartRenderer
             if cur == nil { return }
             
             // let the spline start
-            CGPathMoveToPoint(cubicPath, &valueToPixelMatrix, CGFloat(cur.xIndex), CGFloat(cur.value) * phaseY)
-            
+            cubicPath.move(to: CGPoint(x: CGFloat(cur.xIndex), y: CGFloat(cur.value) * phaseY), transform: valueToPixelMatrix)
+
             for j in stride(from: (minx + 1), to: min(size, entryCount), by: 1)
             {
                 prev = cur
@@ -275,9 +275,9 @@ open class LineChartRenderer: LineRadarChartRenderer
         var pt2 = CGPoint(x: CGFloat(xFrom), y: fillMin)
         pt1 = pt1.applying(matrix)
         pt2 = pt2.applying(matrix)
-        
-        CGPathAddLineToPoint(spline, nil, pt1.x, pt1.y)
-        CGPathAddLineToPoint(spline, nil, pt2.x, pt2.y)
+
+        spline.addLine(to: pt1)
+        spline.addLine(to: pt2)
         spline.closeSubpath()
         
         if dataSet.fill != nil
@@ -501,8 +501,8 @@ open class LineChartRenderer: LineRadarChartRenderer
         e = dataSet.entryForIndex(from)
         if e != nil
         {
-            CGPathMoveToPoint(filled, &matrix, CGFloat(e.xIndex), fillMin)
-            CGPathAddLineToPoint(filled, &matrix, CGFloat(e.xIndex), CGFloat(e.value) * phaseY)
+            filled.move(to: CGPoint(x: CGFloat(e.xIndex), y: fillMin), transform: matrix)
+            filled.addLine(to: CGPoint(x: CGFloat(e.xIndex), y: CGFloat(e.value) * phaseY), transform: matrix)
         }
         
         // create a new path
@@ -513,17 +513,17 @@ open class LineChartRenderer: LineRadarChartRenderer
             if isDrawSteppedEnabled
             {
                 guard let ePrev = dataSet.entryForIndex(x-1) else { continue }
-                CGPathAddLineToPoint(filled, &matrix, CGFloat(e.xIndex), CGFloat(ePrev.value) * phaseY)
+                filled.addLine(to: CGPoint(x: CGFloat(e.xIndex), y: CGFloat(ePrev.value) * phaseY), transform: matrix)
             }
-            
-            CGPathAddLineToPoint(filled, &matrix, CGFloat(e.xIndex), CGFloat(e.value) * phaseY)
+
+            filled.addLine(to: CGPoint(x: CGFloat(e.xIndex), y: CGFloat(e.value) * phaseY), transform: matrix)
         }
         
         // close up
         e = dataSet.entryForIndex(max(min(Int(ceil(CGFloat(to - from) * phaseX + CGFloat(from))) - 1, dataSet.entryCount - 1), 0))
         if e != nil
         {
-            CGPathAddLineToPoint(filled, &matrix, CGFloat(e.xIndex), fillMin)
+            filled.addLine(to: CGPoint(x: CGFloat(e.xIndex), y: fillMin), transform: matrix)
         }
         filled.closeSubpath()
         

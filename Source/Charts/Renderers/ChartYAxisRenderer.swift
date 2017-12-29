@@ -385,11 +385,11 @@ open class ChartYAxisRenderer: ChartAxisRendererBase
         
         if (yAxis.zeroLineDashLengths != nil)
         {
-            CGContextSetLineDash(context, yAxis.zeroLineDashPhase, yAxis.zeroLineDashLengths!, yAxis.zeroLineDashLengths!.count)
+            context.setLineDash(phase: yAxis.zeroLineDashPhase, lengths: yAxis.zeroLineDashLengths!)
         }
         else
         {
-            CGContextSetLineDash(context, 0.0, nil, 0)
+            context.setLineDash(phase: 0.0, lengths: [])
         }
         
         context.move(to: CGPoint(x: x1, y: y1))

@@ -101,12 +101,12 @@ open class RadarChartRenderer: LineRadarChartRenderer
             
             if !hasMovedToPoint
             {
-                CGPathMoveToPoint(path, nil, p.x, p.y)
+                path.move(to: p)
                 hasMovedToPoint = true
             }
             else
             {
-                CGPathAddLineToPoint(path, nil, p.x, p.y)
+                path.addLine(to: p)
             }
         }
         
@@ -114,7 +114,7 @@ open class RadarChartRenderer: LineRadarChartRenderer
         if dataSet.entryCount < mostEntries
         {
             // if this is not the largest set, draw a line to the center before closing
-            CGPathAddLineToPoint(path, nil, center.x, center.y)
+            path.addLine(to: center)
         }
         
         path.closeSubpath()

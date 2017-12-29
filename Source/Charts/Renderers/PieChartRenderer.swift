@@ -155,12 +155,9 @@ open class PieChartRenderer: ChartDataRendererBase
                     let arcStartPointY = center.y + radius * sin(startAngleOuter * ChartUtils.Math.FDEG2RAD)
 
                     let path = CGMutablePath()
-                    
-                    CGPathMoveToPoint(
-                        path,
-                        nil,
-                        arcStartPointX,
-                        arcStartPointY)
+
+                    path.move(to: CGPoint(x: arcStartPointX, y: arcStartPointY))
+
                     CGPathAddRelativeArc(
                         path,
                         nil,
@@ -200,12 +197,8 @@ open class PieChartRenderer: ChartDataRendererBase
                             sweepAngleInner = 0.0
                         }
                         let endAngleInner = startAngleInner + sweepAngleInner
-                        
-                        CGPathAddLineToPoint(
-                            path,
-                            nil,
-                            center.x + innerRadius * cos(endAngleInner * ChartUtils.Math.FDEG2RAD),
-                            center.y + innerRadius * sin(endAngleInner * ChartUtils.Math.FDEG2RAD))
+
+                        path.addLine(to: CGPoint(x: center.x + innerRadius * cos(endAngleInner * ChartUtils.Math.FDEG2RAD), y: center.y + innerRadius * sin(endAngleInner * ChartUtils.Math.FDEG2RAD)))
                         CGPathAddRelativeArc(
                             path,
                             nil,
@@ -233,20 +226,12 @@ open class PieChartRenderer: ChartDataRendererBase
 
                             let arcEndPointX = center.x + sliceSpaceOffset * cos(angleMiddle * ChartUtils.Math.FDEG2RAD)
                             let arcEndPointY = center.y + sliceSpaceOffset * sin(angleMiddle * ChartUtils.Math.FDEG2RAD)
-                            
-                            CGPathAddLineToPoint(
-                                path,
-                                nil,
-                                arcEndPointX,
-                                arcEndPointY)
+
+                            path.addLine(to: CGPoint(x: arcEndPointX, y: arcEndPointY))
                         }
                         else
                         {
-                            CGPathAddLineToPoint(
-                                path,
-                                nil,
-                                center.x,
-                                center.y)
+                            path.addLine(to: center)
                         }
                     }
                     
@@ -718,12 +703,9 @@ open class PieChartRenderer: ChartDataRendererBase
             }
             
             let path = CGMutablePath()
+
+            path.move(to: CGPoint(x: center.x + highlightedRadius * cos(startAngleShifted * ChartUtils.Math.FDEG2RAD), y: center.y + highlightedRadius * sin(startAngleShifted * ChartUtils.Math.FDEG2RAD)))
             
-            CGPathMoveToPoint(
-                path,
-                nil,
-                center.x + highlightedRadius * cos(startAngleShifted * ChartUtils.Math.FDEG2RAD),
-                center.y + highlightedRadius * sin(startAngleShifted * ChartUtils.Math.FDEG2RAD))
             CGPathAddRelativeArc(
                 path,
                 nil,
@@ -769,12 +751,9 @@ open class PieChartRenderer: ChartDataRendererBase
                     sweepAngleInner = 0.0
                 }
                 let endAngleInner = startAngleInner + sweepAngleInner
-                
-                CGPathAddLineToPoint(
-                    path,
-                    nil,
-                    center.x + innerRadius * cos(endAngleInner * ChartUtils.Math.FDEG2RAD),
-                    center.y + innerRadius * sin(endAngleInner * ChartUtils.Math.FDEG2RAD))
+
+                path.addLine(to: CGPoint(x: center.x + innerRadius * cos(endAngleInner * ChartUtils.Math.FDEG2RAD), y: center.y + innerRadius * sin(endAngleInner * ChartUtils.Math.FDEG2RAD)))
+
                 CGPathAddRelativeArc(
                     path,
                     nil,
@@ -792,20 +771,12 @@ open class PieChartRenderer: ChartDataRendererBase
                     
                     let arcEndPointX = center.x + sliceSpaceRadius * cos(angleMiddle * ChartUtils.Math.FDEG2RAD)
                     let arcEndPointY = center.y + sliceSpaceRadius * sin(angleMiddle * ChartUtils.Math.FDEG2RAD)
-                    
-                    CGPathAddLineToPoint(
-                        path,
-                        nil,
-                        arcEndPointX,
-                        arcEndPointY)
+
+                    path.addLine(to: CGPoint(x: arcEndPointX, y: arcEndPointY))
                 }
                 else
                 {
-                    CGPathAddLineToPoint(
-                        path,
-                        nil,
-                        center.x,
-                        center.y)
+                    path.addLine(to: center)
                 }
             }
             
@@ -813,7 +784,7 @@ open class PieChartRenderer: ChartDataRendererBase
             
             context.beginPath()
             context.addPath(path)
-            CGContextEOFillPath(context)
+            context.fillPath(using: .evenOdd)
         }
         
         context.restoreGState()

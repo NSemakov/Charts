@@ -102,7 +102,7 @@ open class ChartColorTemplates: NSObject
             var index = colorString.startIndex
             let endIndex = colorString.endIndex
             
-            index = <#T##Collection corresponding to `index`##Collection#>.index(index, offsetBy: 1)
+            index = colorString.index(index, offsetBy: 1)
             length = length - 1
             
             if length == 3 || length == 6 || length == 8
@@ -111,7 +111,7 @@ open class ChartColorTemplates: NSObject
                 while index < endIndex
                 {
                     var c = colorString[index]
-                    index = <#T##Collection corresponding to `index`##Collection#>.index(index, offsetBy: 1)
+                    index = colorString.index(index, offsetBy: 1)
                     
                     var val = (c.value >= 0x61 && c.value <= 0x66) ? (c.value - 0x61 + 10) : c.value - 0x30
                     argb[i] = UInt(val) * 16
@@ -122,7 +122,7 @@ open class ChartColorTemplates: NSObject
                     else
                     {
                         c = colorString[index]
-                        index = <#T##Collection corresponding to `index`##Collection#>.index(index, offsetBy: 1)
+                        index = colorString.index(index, offsetBy: 1)
                         
                         val = (c.value >= 0x61 && c.value <= 0x66) ? (c.value - 0x61 + 10) : c.value - 0x30
                         argb[i] = argb[i] + UInt(val)
