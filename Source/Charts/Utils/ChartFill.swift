@@ -18,7 +18,7 @@ import CoreGraphics
 open class ChartFill: NSObject
 {
     @objc(ChartFillType)
-    public enum Type: Int
+    public enum `Type`: Int
     {
         case empty
         case color
@@ -271,12 +271,12 @@ open class ChartFill: NSObject
         case .tiledImage:
             
             context.clip()
-            CGContextDrawTiledImage(context, rect, _image!)
-            
+            context.draw(_image!, in: rect, byTiling: true)
+
         case .layer:
             
             context.clip()
-            CGContextDrawLayerInRect(context, rect, _layer!)
+            context.draw(_layer!, in: rect)
             
         case .linearGradient:
             

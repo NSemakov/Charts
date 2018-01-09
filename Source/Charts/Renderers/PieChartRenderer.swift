@@ -157,15 +157,7 @@ open class PieChartRenderer: ChartDataRendererBase
                     let path = CGMutablePath()
 
                     path.move(to: CGPoint(x: arcStartPointX, y: arcStartPointY))
-
-                    CGPathAddRelativeArc(
-                        path,
-                        nil,
-                        center.x,
-                        center.y,
-                        radius,
-                        startAngleOuter * ChartUtils.Math.FDEG2RAD,
-                        sweepAngleOuter * ChartUtils.Math.FDEG2RAD)
+                    path.addRelativeArc(center: center, radius: radius, startAngle: startAngleOuter * ChartUtils.Math.FDEG2RAD, delta: sweepAngleOuter * ChartUtils.Math.FDEG2RAD)
 
                     if drawInnerArc &&
                         (innerRadius > 0.0 || accountForSliceSpacing)

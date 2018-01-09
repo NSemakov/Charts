@@ -292,11 +292,11 @@ open class RadarChartRenderer: LineRadarChartRenderer
         context.setLineWidth(data.highlightLineWidth)
         if (data.highlightLineDashLengths != nil)
         {
-            CGContextSetLineDash(context, data.highlightLineDashPhase, data.highlightLineDashLengths!, data.highlightLineDashLengths!.count)
+            context.setLineDash(phase: data.highlightLineDashPhase, lengths: data.highlightLineDashLengths!)
         }
         else
         {
-            CGContextSetLineDash(context, 0.0, nil, 0)
+            context.setLineDash(phase: 0.0, lengths: [])
         }
         
         let phaseX = animator.phaseX

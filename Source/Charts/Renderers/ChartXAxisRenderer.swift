@@ -111,11 +111,11 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
         context.setLineWidth(xAxis.axisLineWidth)
         if (xAxis.axisLineDashLengths != nil)
         {
-            CGContextSetLineDash(context, xAxis.axisLineDashPhase, xAxis.axisLineDashLengths, xAxis.axisLineDashLengths.count)
+            context.setLineDash(phase: xAxis.axisLineDashPhase, lengths: xAxis.axisLineDashLengths)
         }
         else
         {
-            CGContextSetLineDash(context, 0.0, nil, 0)
+            context.setLineDash(phase: 0.0, lengths: [])
         }
 
         if (xAxis.labelPosition == .top
@@ -236,11 +236,11 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
         
         if (xAxis.gridLineDashLengths != nil)
         {
-            CGContextSetLineDash(context, xAxis.gridLineDashPhase, xAxis.gridLineDashLengths, xAxis.gridLineDashLengths.count)
+            context.setLineDash(phase: xAxis.gridLineDashPhase, lengths: xAxis.gridLineDashLengths)
         }
         else
         {
-            CGContextSetLineDash(context, 0.0, nil, 0)
+            context.setLineDash(phase: 0.0, lengths: [])
         }
         
         let valueToPixelMatrix = transformer.valueToPixelMatrix
@@ -317,11 +317,11 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
         context.setLineWidth(limitLine.lineWidth)
         if (limitLine.lineDashLengths != nil)
         {
-            CGContextSetLineDash(context, limitLine.lineDashPhase, limitLine.lineDashLengths!, limitLine.lineDashLengths!.count)
+            context.setLineDash(phase: limitLine.lineDashPhase, lengths: limitLine.lineDashLengths!)
         }
         else
         {
-            CGContextSetLineDash(context, 0.0, nil, 0)
+            context.setLineDash(phase: 0.0, lengths: [])
         }
         
         CGContextStrokeLineSegments(context, _limitLineSegmentsBuffer, 2)

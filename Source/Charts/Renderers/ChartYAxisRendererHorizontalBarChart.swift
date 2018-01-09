@@ -129,11 +129,11 @@ open class ChartYAxisRendererHorizontalBarChart: ChartYAxisRenderer
         context.setLineWidth(yAxis.axisLineWidth)
         if (yAxis.axisLineDashLengths != nil)
         {
-            CGContextSetLineDash(context, yAxis.axisLineDashPhase, yAxis.axisLineDashLengths, yAxis.axisLineDashLengths.count)
+            context.setLineDash(phase: yAxis.axisLineDashPhase, lengths: yAxis.axisLineDashLengths)
         }
         else
         {
-            CGContextSetLineDash(context, 0.0, nil, 0)
+            context.setLineDash(phase: 0.0, lengths: [])
         }
 
         if (yAxis.axisDependency == .left)
@@ -200,11 +200,11 @@ open class ChartYAxisRendererHorizontalBarChart: ChartYAxisRenderer
 
             if (yAxis.gridLineDashLengths != nil)
             {
-                CGContextSetLineDash(context, yAxis.gridLineDashPhase, yAxis.gridLineDashLengths, yAxis.gridLineDashLengths.count)
+                context.setLineDash(phase: yAxis.gridLineDashPhase, lengths: yAxis.gridLineDashLengths)
             }
             else
             {
-                CGContextSetLineDash(context, 0.0, nil, 0)
+                context.setLineDash(phase: 0.0, lengths: [])
             }
             
             // draw the horizontal grid
@@ -279,11 +279,11 @@ open class ChartYAxisRendererHorizontalBarChart: ChartYAxisRenderer
             context.setLineWidth(l.lineWidth)
             if (l.lineDashLengths != nil)
             {
-                CGContextSetLineDash(context, l.lineDashPhase, l.lineDashLengths!, l.lineDashLengths!.count)
+                context.setLineDash(phase: l.lineDashPhase, lengths: l.lineDashLengths!)
             }
             else
             {
-                CGContextSetLineDash(context, 0.0, nil, 0)
+                context.setLineDash(phase: 0.0, lengths: [])
             }
             
             CGContextStrokeLineSegments(context, _limitLineSegmentsBuffer, 2)

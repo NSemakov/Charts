@@ -64,11 +64,11 @@ open class LineChartRenderer: LineRadarChartRenderer
         context.setLineWidth(dataSet.lineWidth)
         if (dataSet.lineDashLengths != nil)
         {
-            CGContextSetLineDash(context, dataSet.lineDashPhase, dataSet.lineDashLengths!, dataSet.lineDashLengths!.count)
+            context.setLineDash(phase: dataSet.lineDashPhase, lengths: dataSet.lineDashLengths!)
         }
         else
         {
-            CGContextSetLineDash(context, 0.0, nil, 0)
+            context.setLineDash(phase: 0.0, lengths: [])
         }
         
         // if drawing cubic lines is enabled
@@ -772,11 +772,11 @@ open class LineChartRenderer: LineRadarChartRenderer
                 context.setLineWidth(set.highlightLineWidth)
                 if (set.highlightLineDashLengths != nil)
                 {
-                    CGContextSetLineDash(context, set.highlightLineDashPhase, set.highlightLineDashLengths!, set.highlightLineDashLengths!.count)
+                    context.setLineDash(phase: set.highlightLineDashPhase, lengths: set.highlightLineDashLengths!)
                 }
                 else
                 {
-                    CGContextSetLineDash(context, 0.0, nil, 0)
+                    context.setLineDash(phase: 0.0, lengths: [])
                 }
                 
                 let xIndex = high.xIndex; // get the x-position
