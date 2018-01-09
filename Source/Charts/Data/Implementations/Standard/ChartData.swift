@@ -108,7 +108,7 @@ open class ChartData: NSObject
         
         for i in 0 ..< _xVals.count
         {
-            sum += _xVals[i] == nil ? 0 : (_xVals[i]!).characters.count
+            sum += _xVals[i] == nil ? 0 : (_xVals[i]!).count
         }
         
         _xValAverageLength = Double(sum) / Double(_xVals.count)
@@ -159,8 +159,8 @@ open class ChartData: NSObject
             _lastStart = start
             _lastEnd = end
             
-            _yMin = DBL_MAX
-            _yMax = -DBL_MAX
+            _yMin = Double.greatestFiniteMagnitude
+            _yMax = -Double.greatestFiniteMagnitude
             
             for i in 0 ..< _dataSets.count
             {
@@ -177,7 +177,7 @@ open class ChartData: NSObject
                 }
             }
             
-            if (_yMin == DBL_MAX)
+            if (_yMin == Double.greatestFiniteMagnitude)
             {
                 _yMin = 0.0
                 _yMax = 0.0
@@ -444,8 +444,7 @@ open class ChartData: NSObject
             let entries = _dataSets[highlight.dataSetIndex].entriesForXIndex(highlight.xIndex)
             for e in entries
             {
-                if e.value == highlight.value || isnan(highlight.value)
-                {
+                if e.value == highlight.value || highlight.value.isNaN                {
                     return e
                 }
             }

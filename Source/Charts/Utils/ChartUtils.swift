@@ -25,15 +25,15 @@ open class ChartUtils
     
     internal struct Math
     {
-        internal static let FDEG2RAD = CGFloat(M_PI / 180.0)
-        internal static let FRAD2DEG = CGFloat(180.0 / M_PI)
-        internal static let DEG2RAD = M_PI / 180.0
-        internal static let RAD2DEG = 180.0 / M_PI
+        internal static let FDEG2RAD = CGFloat(Double.pi / 180.0)
+        internal static let FRAD2DEG = CGFloat(180.0 / Double.pi)
+        internal static let DEG2RAD = Double.pi / 180.0
+        internal static let RAD2DEG = 180.0 / Double.pi
     }
     
     internal class func roundToNextSignificant(number: Double) -> Double
     {
-        if (isinf(number) || isnan(number) || number == 0)
+        if (number.isInfinite || number.isNaN || number == 0)
         {
             return number
         }
@@ -58,13 +58,13 @@ open class ChartUtils
     
     internal class func nextUp(_ number: Double) -> Double
     {
-        if (isinf(number) || isnan(number))
+        if (number.isInfinite || number.isNaN)
         {
             return number
         }
         else
         {
-            return number + DBL_EPSILON
+            return number + Double.ulpOfOne
         }
     }
     
@@ -119,7 +119,7 @@ open class ChartUtils
                     value: Double,
                     axis: ChartYAxis.AxisDependency?) -> ChartSelectionDetail?
     {
-        var distance = DBL_MAX
+        var distance = Double.greatestFiniteMagnitude
         var detail: ChartSelectionDetail?
         
         for i in 0 ..< valsAtIndex.count
@@ -246,7 +246,7 @@ open class ChartUtils
         NSUIGraphicsPopContext()
     }
     
-    internal class func drawMultilineText(context: CGContext, text: String, knownTextSize: CGSize, point: CGPoint, attributes: [String : AnyObject]?, constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
+    internal class func drawMultilineText(context: CGContext, text: String, knownTextSize: CGSize, point: CGPoint, attributes: [String : Any]?, constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
     {
         var rect = CGRect(origin: CGPoint(), size: knownTextSize)
         
@@ -294,7 +294,7 @@ open class ChartUtils
         NSUIGraphicsPopContext()
     }
     
-    internal class func drawMultilineText(context: CGContext, text: String, point: CGPoint, attributes: [String : AnyObject]?, constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
+    internal class func drawMultilineText(context: CGContext, text: String, point: CGPoint, attributes: [String : Any]?, constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
     {
         let rect = text.boundingRect(with: constrainedToSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
         drawMultilineText(context: context, text: text, knownTextSize: rect.size, point: point, attributes: attributes, constrainedToSize: constrainedToSize, anchor: anchor, angleRadians: angleRadians)

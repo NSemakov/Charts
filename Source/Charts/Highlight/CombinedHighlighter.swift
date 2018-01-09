@@ -36,7 +36,7 @@ open class CombinedHighlighter: ChartHighlighter
         {
             for j in 0 ..< dataObjects[i].dataSetCount
             {
-                let dataSet = dataObjects[i].getDataSetByIndex(j)
+                let dataSet: IChartDataSet = dataObjects[i].getDataSetByIndex(j)
                 
                 // dont include datasets that cannot be highlighted
                 if !dataSet.isHighlightEnabled

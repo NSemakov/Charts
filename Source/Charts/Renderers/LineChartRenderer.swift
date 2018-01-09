@@ -117,7 +117,7 @@ open class LineChartRenderer: LineRadarChartRenderer
         // the path for the cubic-spline
         let cubicPath = CGMutablePath()
         
-        var valueToPixelMatrix = trans.valueToPixelMatrix
+        let valueToPixelMatrix = trans.valueToPixelMatrix
         
         let size = Int(ceil(CGFloat(maxx - minx) * phaseX + CGFloat(minx)))
         
@@ -151,14 +151,8 @@ open class LineChartRenderer: LineRadarChartRenderer
                 prevDy = CGFloat(cur.value - prevPrev.value) * intensity
                 curDx = CGFloat(next.xIndex - prev.xIndex) * intensity
                 curDy = CGFloat(next.value - prev.value) * intensity
-                
-                CGPathAddCurveToPoint(cubicPath, &valueToPixelMatrix,
-                                      CGFloat(prev.xIndex) + prevDx,
-                                      (CGFloat(prev.value) + prevDy) * phaseY,
-                                      CGFloat(cur.xIndex) - curDx,
-                                      (CGFloat(cur.value) - curDy) * phaseY,
-                                      CGFloat(cur.xIndex),
-                                      CGFloat(cur.value) * phaseY)
+
+                cubicPath.addCurve(to: CGPoint(x: CGFloat(cur.xIndex), y: CGFloat(cur.value) * phaseY), control1: CGPoint(x: CGFloat(prev.xIndex) + prevDx, y: (CGFloat(prev.value) + prevDy) * phaseY), control2: CGPoint(x: CGFloat(cur.xIndex) - curDx, y: (CGFloat(cur.value) - curDy) * phaseY), transform: valueToPixelMatrix)
             }
         }
         
@@ -207,7 +201,7 @@ open class LineChartRenderer: LineRadarChartRenderer
         // the path for the cubic-spline
         let cubicPath = CGMutablePath()
         
-        var valueToPixelMatrix = trans.valueToPixelMatrix
+        let valueToPixelMatrix = trans.valueToPixelMatrix
         
         let size = Int(ceil(CGFloat(maxx - minx) * phaseX + CGFloat(minx)))
         
@@ -227,12 +221,8 @@ open class LineChartRenderer: LineRadarChartRenderer
                 cur = dataSet.entryForIndex(j)
                 
                 let cpx = CGFloat(prev.xIndex) + CGFloat(cur.xIndex - prev.xIndex) / 2.0
-                
-                CGPathAddCurveToPoint(cubicPath,
-                                      &valueToPixelMatrix,
-                                      cpx, CGFloat(prev.value) * phaseY,
-                                      cpx, CGFloat(cur.value) * phaseY,
-                                      CGFloat(cur.xIndex), CGFloat(cur.value) * phaseY)
+
+                cubicPath.addCurve(to: CGPoint(x: CGFloat(cur.xIndex), y: CGFloat(cur.value) * phaseY), control1: CGPoint(x: cpx, y: CGFloat(prev.value) * phaseY), control2: CGPoint(x: cpx, y: CGFloat(cur.value) * phaseY), transform: valueToPixelMatrix)
             }
         }
         
@@ -449,7 +439,6 @@ open class LineChartRenderer: LineRadarChartRenderer
                 
                 if j > 0
                 {
-                    let size = max((count - minx - 1) * pointsPerEntryPair, pointsPerEntryPair)
                     context.setStrokeColor(dataSet.colorAt(0).cgColor)
                     context.strokeLineSegments(between: _lineSegments)
                 }
@@ -492,7 +481,7 @@ open class LineChartRenderer: LineRadarChartRenderer
         let phaseX = max(0.0, min(1.0, animator?.phaseX ?? 1.0))
         let phaseY = animator?.phaseY ?? 1.0
         let isDrawSteppedEnabled = dataSet.mode == .stepped
-        var matrix = matrix
+        let matrix = matrix
         
         var e: ChartDataEntry!
         
@@ -606,7 +595,7 @@ open class LineChartRenderer: LineRadarChartRenderer
                     }
                     
                     ChartUtils.drawText(context: context,
-                        text: formatter.string(from: e.value)!,
+                        text: formatter.string(from: NSNumber(value: e.value))!,
                         point: CGPoint(
                             x: pt.x,
                             y: pt.y - CGFloat(valOffset) - valueFont.lineHeight),
@@ -713,10 +702,10 @@ open class LineChartRenderer: LineRadarChartRenderer
                     context.addEllipse(in: rect)
                     
                     // Cut hole in path
-                    CGContextAddArc(context, pt.x, pt.y, circleHoleRadius, 0.0, CGFloat(M_PI_2), 1)
+                    context.addArc(center: pt, radius: circleHoleRadius, startAngle: 0.0, endAngle: CGFloat(Double.pi/2), clockwise: true)
                     
                     // Fill in-between
-                    CGContextFillPath(context)
+                    context.fillPath()
                 }
                 else
                 {

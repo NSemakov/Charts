@@ -255,6 +255,7 @@ open class ChartViewPortHandler: NSObject
     }
     
     /// call this method to refresh the graph with a given matrix
+    @discardableResult
     open func refresh(newMatrix: CGAffineTransform, chart: ChartViewBase, invalidate: Bool) -> CGAffineTransform
     {
         _touchMatrix = newMatrix

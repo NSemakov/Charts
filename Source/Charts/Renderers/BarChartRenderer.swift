@@ -359,7 +359,7 @@ open class BarChartRenderer: ChartDataRendererBase
                         let val = e.value
 
                         drawValue(context: context,
-                            value: formatter.string(from: val)!,
+                           value: formatter.string(from: NSNumber(value: val))!,
                             xPos: valuePoint.x,
                             yPos: valuePoint.y + (val >= 0.0 ? posOffset : negOffset),
                             font: valueFont,
@@ -394,7 +394,7 @@ open class BarChartRenderer: ChartDataRendererBase
                             }
                             
                             drawValue(context: context,
-                                value: formatter.string(from: e.value)!,
+                               value: formatter.string(from: NSNumber(value: e.value))!,
                                 xPos: valuePoint.x,
                                 yPos: valuePoint.y + (e.value >= 0.0 ? posOffset : negOffset),
                                 font: valueFont,
@@ -448,7 +448,7 @@ open class BarChartRenderer: ChartDataRendererBase
                                 }
                                 
                                 drawValue(context: context,
-                                    value: formatter.string(from: vals[k])!,
+                                   value: formatter.string(from: NSNumber(value: vals[k]))!,
                                     xPos: x,
                                     yPos: y,
                                     font: valueFont,
@@ -518,7 +518,7 @@ open class BarChartRenderer: ChartDataRendererBase
                 {
                     let e = set.entryForXIndex(index) as! BarChartDataEntry!
                     
-                    if (e === nil || e.xIndex != index)
+                    if (e === nil || e!.xIndex != index)
                     {
                         continue
                     }
@@ -539,7 +539,7 @@ open class BarChartRenderer: ChartDataRendererBase
                     }
                     else
                     {
-                        y1 = e.value
+                        y1 = e!.value
                         y2 = 0.0
                     }
                     

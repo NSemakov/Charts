@@ -306,7 +306,7 @@ open class CandleStickChartRenderer: LineScatterCandleRadarChartRenderer
                     
                     ChartUtils.drawText(
                         context: context,
-                        text: formatter.string(from: e.high)!,
+                        text: formatter.string(from: NSNumber(value: e.high))!,
                         point: CGPoint(
                             x: pt.x,
                             y: pt.y - yOffset),

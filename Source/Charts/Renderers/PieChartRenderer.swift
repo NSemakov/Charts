@@ -191,14 +191,8 @@ open class PieChartRenderer: ChartDataRendererBase
                         let endAngleInner = startAngleInner + sweepAngleInner
 
                         path.addLine(to: CGPoint(x: center.x + innerRadius * cos(endAngleInner * ChartUtils.Math.FDEG2RAD), y: center.y + innerRadius * sin(endAngleInner * ChartUtils.Math.FDEG2RAD)))
-                        CGPathAddRelativeArc(
-                            path,
-                            nil,
-                            center.x,
-                            center.y,
-                            innerRadius,
-                            endAngleInner * ChartUtils.Math.FDEG2RAD,
-                            -sweepAngleInner * ChartUtils.Math.FDEG2RAD)
+
+                        path.addRelativeArc(center: center, radius: innerRadius, startAngle: endAngleInner * ChartUtils.Math.FDEG2RAD, delta: -sweepAngleInner * ChartUtils.Math.FDEG2RAD)
                     }
                     else
                     {
@@ -331,7 +325,7 @@ open class PieChartRenderer: ChartDataRendererBase
                 let transformedAngle = rotationAngle + angle * phaseY
                 
                 let value = usePercentValuesEnabled ? e.value / yValueSum * 100.0 : e.value
-                let valueText = formatter.string(from: value)!
+                let valueText = formatter.string(from: NSNumber(value: value))!
                 
                 let sliceXBase = cos(transformedAngle * ChartUtils.Math.FDEG2RAD)
                 let sliceYBase = sin(transformedAngle * ChartUtils.Math.FDEG2RAD)
@@ -697,15 +691,8 @@ open class PieChartRenderer: ChartDataRendererBase
             let path = CGMutablePath()
 
             path.move(to: CGPoint(x: center.x + highlightedRadius * cos(startAngleShifted * ChartUtils.Math.FDEG2RAD), y: center.y + highlightedRadius * sin(startAngleShifted * ChartUtils.Math.FDEG2RAD)))
-            
-            CGPathAddRelativeArc(
-                path,
-                nil,
-                center.x,
-                center.y,
-                highlightedRadius,
-                startAngleShifted * ChartUtils.Math.FDEG2RAD,
-                sweepAngleShifted * ChartUtils.Math.FDEG2RAD)
+
+            path.addRelativeArc(center: center, radius: highlightedRadius, startAngle: startAngleShifted * ChartUtils.Math.FDEG2RAD, delta: sweepAngleShifted * ChartUtils.Math.FDEG2RAD)
             
             var sliceSpaceRadius: CGFloat = 0.0
             if accountForSliceSpacing
@@ -746,14 +733,7 @@ open class PieChartRenderer: ChartDataRendererBase
 
                 path.addLine(to: CGPoint(x: center.x + innerRadius * cos(endAngleInner * ChartUtils.Math.FDEG2RAD), y: center.y + innerRadius * sin(endAngleInner * ChartUtils.Math.FDEG2RAD)))
 
-                CGPathAddRelativeArc(
-                    path,
-                    nil,
-                    center.x,
-                    center.y,
-                    innerRadius,
-                    endAngleInner * ChartUtils.Math.FDEG2RAD,
-                    -sweepAngleInner * ChartUtils.Math.FDEG2RAD)
+                path.addRelativeArc(center: center, radius: innerRadius, startAngle: endAngleInner * ChartUtils.Math.FDEG2RAD, delta: -sweepAngleInner * ChartUtils.Math.FDEG2RAD)
             }
             else
             {

@@ -97,13 +97,12 @@ open class BarChartHighlighter: ChartHighlighter
     
     open override func getSelectionDetail(xIndex: Int, y: CGFloat, dataSetIndex: Int?) -> ChartSelectionDetail?
     {
-        if let barData = self.chart?.data as? BarChartData
+        let dataSetIndex = dataSetIndex ?? 0
+        if let barData = self.chart?.data as? BarChartData,
+           let dataSet = barData.dataSetCount > dataSetIndex ? barData.getDataSetByIndex(dataSetIndex) : nil
         {
-            let dataSetIndex = dataSetIndex ?? 0
-            let dataSet = barData.dataSetCount > dataSetIndex ? barData.getDataSetByIndex(dataSetIndex) : nil
             let yValue = dataSet.yValForXIndex(xIndex)
-            
-            if isnan(yValue) { return nil }
+            if yValue.isNaN { return nil }
             
             return ChartSelectionDetail(value: yValue, dataSetIndex: dataSetIndex, dataSet: dataSet)
         }
@@ -196,7 +195,7 @@ open class BarChartHighlighter: ChartHighlighter
         self.chart?.getTransformer(ChartYAxis.AxisDependency.left).pixelToValue(&pt)
         let xVal = Double(pt.x)
         
-        let setCount = barData.dataSetCount ?? 0
+        let setCount = barData.dataSetCount
         
         // calculate how often the group-space appears
         let steps = Int(xVal / (Double(setCount) + Double(barData.groupSpace)))

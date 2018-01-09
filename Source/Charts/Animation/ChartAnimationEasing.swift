@@ -142,7 +142,8 @@ internal struct EasingFunctions
         {
             return 0.5 * position * position
         }
-        return -0.5 * ((--position) * (position - 2.0) - 1.0)
+        position -= 1
+        return -0.5 * ((position) * (position - 2.0) - 1.0)
     }
     
     internal static let EaseInCubic = { (elapsed: TimeInterval, duration: TimeInterval) -> CGFloat in
@@ -213,17 +214,17 @@ internal struct EasingFunctions
     
     internal static let EaseInSine = { (elapsed: TimeInterval, duration: TimeInterval) -> CGFloat in
         var position: TimeInterval = elapsed / duration
-        return CGFloat( -cos(position * M_PI_2) + 1.0 )
+        return CGFloat( -cos(position * (Double.pi / 2)) + 1.0 )
     }
     
     internal static let EaseOutSine = { (elapsed: TimeInterval, duration: TimeInterval) -> CGFloat in
         var position: TimeInterval = elapsed / duration
-        return CGFloat( sin(position * M_PI_2) )
+        return CGFloat( sin(position * (Double.pi / 2)) )
     }
     
     internal static let EaseInOutSine = { (elapsed: TimeInterval, duration: TimeInterval) -> CGFloat in
         var position: TimeInterval = elapsed / duration
-        return CGFloat( -0.5 * (cos(M_PI * position) - 1.0) )
+        return CGFloat( -0.5 * (cos(Double.pi * position) - 1.0) )
     }
     
     internal static let EaseInExpo = { (elapsed: TimeInterval, duration: TimeInterval) -> CGFloat in
@@ -288,9 +289,9 @@ internal struct EasingFunctions
         }
         
         var p = duration * 0.3
-        var s = p / (2.0 * M_PI) * asin(1.0)
+        var s = p / (2.0 * Double.pi) * asin(1.0)
         position -= 1.0
-        return CGFloat( -(pow(2.0, 10.0 * position) * sin((position * duration - s) * (2.0 * M_PI) / p)) )
+        return CGFloat( -(pow(2.0, 10.0 * position) * sin((position * duration - s) * (2.0 * Double.pi) / p)) )
     }
     
     internal static let EaseOutElastic = { (elapsed: TimeInterval, duration: TimeInterval) -> CGFloat in
@@ -306,8 +307,8 @@ internal struct EasingFunctions
         }
         
         var p = duration * 0.3
-        var s = p / (2.0 * M_PI) * asin(1.0)
-        return CGFloat( pow(2.0, -10.0 * position) * sin((position * duration - s) * (2.0 * M_PI) / p) + 1.0 )
+        var s = p / (2.0 * Double.pi) * asin(1.0)
+        return CGFloat( pow(2.0, -10.0 * position) * sin((position * duration - s) * (2.0 * Double.pi) / p) + 1.0 )
     }
     
     internal static let EaseInOutElastic = { (elapsed: TimeInterval, duration: TimeInterval) -> CGFloat in
@@ -323,14 +324,14 @@ internal struct EasingFunctions
         }
         
         var p = duration * (0.3 * 1.5)
-        var s = p / (2.0 * M_PI) * asin(1.0)
+        var s = p / (2.0 * Double.pi) * asin(1.0)
         if (position < 1.0)
         {
             position -= 1.0
-            return CGFloat( -0.5 * (pow(2.0, 10.0 * position) * sin((position * duration - s) * (2.0 * M_PI) / p)) )
+            return CGFloat( -0.5 * (pow(2.0, 10.0 * position) * sin((position * duration - s) * (2.0 * Double.pi) / p)) )
         }
         position -= 1.0
-        return CGFloat( pow(2.0, -10.0 * position) * sin((position * duration - s) * (2.0 * M_PI) / p) * 0.5 + 1.0 )
+        return CGFloat( pow(2.0, -10.0 * position) * sin((position * duration - s) * (2.0 * Double.pi) / p) * 0.5 + 1.0 )
     }
     
     internal static let EaseInBack = { (elapsed: TimeInterval, duration: TimeInterval) -> CGFloat in

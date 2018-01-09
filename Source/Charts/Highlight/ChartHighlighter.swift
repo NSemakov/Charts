@@ -93,7 +93,7 @@ open class ChartHighlighter : NSObject
                 continue
             }
             
-            let dataSet = data.getDataSetByIndex(i)
+            let dataSet: IChartDataSet = data.getDataSetByIndex(i)
             
             // dont include datasets that cannot be highlighted
             if !dataSet.isHighlightEnabled

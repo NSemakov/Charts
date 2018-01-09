@@ -320,7 +320,7 @@ open class ScatterChartRenderer: LineScatterCandleRadarChartRenderer
                         continue
                     }
                     
-                    let text = formatter.string(from: e.value)
+                    let text = formatter.string(from: NSNumber(value: e.value))
                     
                     ChartUtils.drawText(
                         context: context,

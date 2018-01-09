@@ -202,7 +202,7 @@ open class BubbleChartRenderer: ChartDataRendererBase
                         continue
                     }
                     
-                    let text = formatter.string(from: e.size)
+                    let text = formatter.string(from: NSNumber(value: Float(e.size)))
                     
                     // Larger font for larger bubbles?
                     let valueFont = dataSet.valueFont
@@ -256,7 +256,7 @@ open class BubbleChartRenderer: ChartDataRendererBase
                 {
                     guard let entry = entry as? BubbleChartDataEntry
                         else { continue }
-                    if !isnan(high.value) && entry.value != high.value { continue }
+                    if !high.value.isNaN && entry.value != high.value { continue }
                     
                     let entryFrom = dataSet.entryForXIndex(self.minX)
                     let entryTo = dataSet.entryForXIndex(self.maxX)

@@ -323,8 +323,8 @@ open class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
             context.saveGState()
             defer { context.restoreGState() }
             
-            let hasText = noDataText.characters.count > 0
-            let hasDescription = noDataTextDescription?.characters.count > 0
+            let hasText = noDataText.count > 0
+            let hasDescription = noDataTextDescription?.count > 0
             var textHeight = hasText ? infoFont.lineHeight : 0.0
             if hasDescription
             {
@@ -347,7 +347,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
                 y = y + infoFont.lineHeight
             }
             
-            if (noDataTextDescription != nil && (noDataTextDescription!).characters.count > 0)
+            if (noDataTextDescription != nil && (noDataTextDescription!).count > 0)
             {
                 ChartUtils.drawText(context: context, text: noDataTextDescription!, point: CGPoint(x: frame.width / 2.0, y: y), align: .center, attributes: [NSFontAttributeName: infoFont, NSForegroundColorAttributeName: infoTextColor])
             }
@@ -810,7 +810,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
         for i in 0 ..< data.dataSetCount
         {
             let set = data.getDataSetByIndex(i)
-            let e = set.entryForXIndex(xIndex)
+            let e = set?.entryForXIndex(xIndex)
             if (e !== nil)
             {
                 vals.append(e!)
@@ -890,8 +890,14 @@ open class ChartViewBase: NSUIView, ChartDataProvider, ChartAnimatorDelegate
 				imageData = NSUIImageJPEGRepresentation(image, CGFloat(compressionQuality))
 				break
 			}
-
-			return imageData.write(to: path, options: true)
+            
+            do {
+                try imageData.write(to: URL(string: path)!)
+                return true
+            }
+            catch {
+                return false
+            }
 		}
 		return false
     }

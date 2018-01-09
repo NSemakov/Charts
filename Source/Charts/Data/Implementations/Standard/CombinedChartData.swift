@@ -233,7 +233,7 @@ open class CombinedChartData: BarLineScatterCandleBubbleChartData
             let entries = data.getDataSetByIndex(highlight.dataSetIndex).entriesForXIndex(highlight.xIndex)
             for e in entries
             {
-                if e.value == highlight.value || isnan(highlight.value)
+                if e.value == highlight.value || highlight.value.isNaN
                 {
                     return e
                 }

@@ -93,7 +93,7 @@ open class HorizontalBarChartHighlighter: BarChartHighlighter
             self.chart?.getTransformer(ChartYAxis.AxisDependency.left).pixelToValue(&pt)
             let yVal = Double(pt.y)
             
-            let setCount = barData.dataSetCount ?? 0
+            let setCount = barData.dataSetCount
             
             // calculate how often the group-space appears
             let steps = Int(yVal / (Double(setCount) + Double(barData.groupSpace)))

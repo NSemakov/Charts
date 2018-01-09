@@ -151,7 +151,7 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
         let paraStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paraStyle.alignment = .center
         
-        let labelAttrs = [NSFontAttributeName: xAxis.labelFont,
+        let labelAttrs: [String: Any] = [NSFontAttributeName: xAxis.labelFont,
             NSForegroundColorAttributeName: xAxis.labelTextColor,
             NSParagraphStyleAttributeName: paraStyle]
         let labelRotationAngleRadians = xAxis.labelRotationAngle * ChartUtils.Math.FDEG2RAD
@@ -208,7 +208,7 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
         }
     }
     
-    open func drawLabel(context: CGContext, label: String, xIndex: Int, x: CGFloat, y: CGFloat, attributes: [String: NSObject], constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
+    open func drawLabel(context: CGContext, label: String, xIndex: Int, x: CGFloat, y: CGFloat, attributes: [String: Any], constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
     {
         guard let xAxis = xAxis else { return }
         
@@ -332,7 +332,7 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
         let label = limitLine.label
         
         // if drawing the limit-value label is enabled
-        if (limitLine.drawLabelEnabled && label.characters.count > 0)
+        if (limitLine.drawLabelEnabled && label.count > 0)
         {
             let labelLineHeight = limitLine.valueFont.lineHeight
             
