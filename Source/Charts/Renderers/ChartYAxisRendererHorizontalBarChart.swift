@@ -142,7 +142,7 @@ open class ChartYAxisRendererHorizontalBarChart: ChartYAxisRenderer
             _axisLineSegmentsBuffer[0].y = viewPortHandler.contentTop
             _axisLineSegmentsBuffer[1].x = viewPortHandler.contentRight
             _axisLineSegmentsBuffer[1].y = viewPortHandler.contentTop
-            CGContextStrokeLineSegments(context, _axisLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _axisLineSegmentsBuffer)
         }
         else
         {
@@ -150,7 +150,7 @@ open class ChartYAxisRendererHorizontalBarChart: ChartYAxisRenderer
             _axisLineSegmentsBuffer[0].y = viewPortHandler.contentBottom
             _axisLineSegmentsBuffer[1].x = viewPortHandler.contentRight
             _axisLineSegmentsBuffer[1].y = viewPortHandler.contentBottom
-            CGContextStrokeLineSegments(context, _axisLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _axisLineSegmentsBuffer)
         }
         
         context.restoreGState()
@@ -285,8 +285,8 @@ open class ChartYAxisRendererHorizontalBarChart: ChartYAxisRenderer
             {
                 context.setLineDash(phase: 0.0, lengths: [])
             }
-            
-            CGContextStrokeLineSegments(context, _limitLineSegmentsBuffer, 2)
+
+            context.strokeLineSegments(between: _limitLineSegmentsBuffer)
 
             let label = l.label
 

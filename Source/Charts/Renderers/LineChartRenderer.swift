@@ -391,7 +391,7 @@ open class LineChartRenderer: LineRadarChartRenderer
                 
                 // get the color that is set for this line-segment
                 context.setStrokeColor(dataSet.colorAt(j).cgColor)
-                CGContextStrokeLineSegments(context, _lineSegments, pointsPerEntryPair)
+                context.strokeLineSegments(between: _lineSegments)
             }
         }
         else
@@ -451,7 +451,7 @@ open class LineChartRenderer: LineRadarChartRenderer
                 {
                     let size = max((count - minx - 1) * pointsPerEntryPair, pointsPerEntryPair)
                     context.setStrokeColor(dataSet.colorAt(0).cgColor)
-                    CGContextStrokeLineSegments(context, _lineSegments, size)
+                    context.strokeLineSegments(between: _lineSegments)
                 }
             }
         }

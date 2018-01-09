@@ -254,7 +254,7 @@ open class ChartYAxisRenderer: ChartAxisRendererBase
             _axisLineSegmentsBuffer[0].y = viewPortHandler.contentTop
             _axisLineSegmentsBuffer[1].x = viewPortHandler.contentLeft
             _axisLineSegmentsBuffer[1].y = viewPortHandler.contentBottom
-            CGContextStrokeLineSegments(context, _axisLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _axisLineSegmentsBuffer)
         }
         else
         {
@@ -262,7 +262,7 @@ open class ChartYAxisRenderer: ChartAxisRendererBase
             _axisLineSegmentsBuffer[0].y = viewPortHandler.contentTop
             _axisLineSegmentsBuffer[1].x = viewPortHandler.contentRight
             _axisLineSegmentsBuffer[1].y = viewPortHandler.contentBottom
-            CGContextStrokeLineSegments(context, _axisLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _axisLineSegmentsBuffer)
         }
         
         context.restoreGState()
@@ -344,7 +344,7 @@ open class ChartYAxisRenderer: ChartAxisRendererBase
                 _gridLineBuffer[0].y = position.y
                 _gridLineBuffer[1].x = viewPortHandler.contentRight
                 _gridLineBuffer[1].y = position.y
-                CGContextStrokeLineSegments(context, _gridLineBuffer, 2)
+                context.strokeLineSegments(between: _gridLineBuffer)
             }
             
             context.restoreGState()
@@ -446,8 +446,8 @@ open class ChartYAxisRenderer: ChartAxisRendererBase
             {
                 context.setLineDash(phase: 0.0, lengths: [])
             }
-            
-            CGContextStrokeLineSegments(context, _limitLineSegmentsBuffer, 2)
+
+            context.strokeLineSegments(between: _limitLineSegmentsBuffer)
             
             let label = l.label
             

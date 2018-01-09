@@ -146,8 +146,8 @@ open class CandleStickChartRenderer: LineScatterCandleRadarChartRenderer
                 }
                 
                 context.setStrokeColor(shadowColor.cgColor)
-                CGContextStrokeLineSegments(context, _shadowPoints, 4)
-                
+                context.strokeLineSegments(between: _shadowPoints)
+
                 // calculate the body
                 
                 _bodyRect.origin.x = CGFloat(xIndex) - 0.5 + barSpace
@@ -235,9 +235,9 @@ open class CandleStickChartRenderer: LineScatterCandleRadarChartRenderer
                 }
                 
                 context.setStrokeColor(barColor.cgColor)
-                CGContextStrokeLineSegments(context, _rangePoints, 2)
-                CGContextStrokeLineSegments(context, _openPoints, 2)
-                CGContextStrokeLineSegments(context, _closePoints, 2)
+                context.strokeLineSegments(between: _rangePoints)
+                context.strokeLineSegments(between: _openPoints)
+                context.strokeLineSegments(between: _closePoints)
             }
         }
         

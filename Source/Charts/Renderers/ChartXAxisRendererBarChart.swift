@@ -156,7 +156,7 @@ open class ChartXAxisRendererBarChart: ChartXAxisRenderer
                 _gridLineSegmentsBuffer[0].y = viewPortHandler.contentTop
                 _gridLineSegmentsBuffer[1].x = position.x
                 _gridLineSegmentsBuffer[1].y = viewPortHandler.contentBottom
-                CGContextStrokeLineSegments(context, _gridLineSegmentsBuffer, 2)
+                context.strokeLineSegments(between: _gridLineSegmentsBuffer)
             }
         }
         

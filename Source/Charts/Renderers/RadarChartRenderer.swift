@@ -246,8 +246,8 @@ open class RadarChartRenderer: LineRadarChartRenderer
             _webLineSegmentsBuffer[0].y = center.y
             _webLineSegmentsBuffer[1].x = p.x
             _webLineSegmentsBuffer[1].y = p.y
-            
-            CGContextStrokeLineSegments(context, _webLineSegmentsBuffer, 2)
+
+            context.strokeLineSegments(between: _webLineSegmentsBuffer)
         }
         
         // draw the inner-web
@@ -270,8 +270,8 @@ open class RadarChartRenderer: LineRadarChartRenderer
                 _webLineSegmentsBuffer[0].y = p1.y
                 _webLineSegmentsBuffer[1].x = p2.x
                 _webLineSegmentsBuffer[1].y = p2.y
-                
-                CGContextStrokeLineSegments(context, _webLineSegmentsBuffer, 2)
+
+                context.strokeLineSegments(between: _webLineSegmentsBuffer)
             }
         }
         

@@ -212,13 +212,13 @@ open class ScatterChartRenderer: LineScatterCandleRadarChartRenderer
                 _lineSegments[0].y = point.y
                 _lineSegments[1].x = point.x + shapeHalf
                 _lineSegments[1].y = point.y
-                CGContextStrokeLineSegments(context, _lineSegments, 2)
-                
+                context.strokeLineSegments(between: _lineSegments)
+
                 _lineSegments[0].x = point.x
                 _lineSegments[0].y = point.y - shapeHalf
                 _lineSegments[1].x = point.x
                 _lineSegments[1].y = point.y + shapeHalf
-                CGContextStrokeLineSegments(context, _lineSegments, 2)
+                context.strokeLineSegments(between: _lineSegments)
             }
             else if (shape == .x)
             {
@@ -227,13 +227,13 @@ open class ScatterChartRenderer: LineScatterCandleRadarChartRenderer
                 _lineSegments[0].y = point.y - shapeHalf
                 _lineSegments[1].x = point.x + shapeHalf
                 _lineSegments[1].y = point.y + shapeHalf
-                CGContextStrokeLineSegments(context, _lineSegments, 2)
-                
+                context.strokeLineSegments(between: _lineSegments)
+
                 _lineSegments[0].x = point.x + shapeHalf
                 _lineSegments[0].y = point.y - shapeHalf
                 _lineSegments[1].x = point.x - shapeHalf
                 _lineSegments[1].y = point.y + shapeHalf
-                CGContextStrokeLineSegments(context, _lineSegments, 2)
+                context.strokeLineSegments(between: _lineSegments)
             }
             else if (shape == .custom)
             {

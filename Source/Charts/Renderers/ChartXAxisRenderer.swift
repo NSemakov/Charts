@@ -126,7 +126,7 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
             _axisLineSegmentsBuffer[0].y = viewPortHandler.contentTop
             _axisLineSegmentsBuffer[1].x = viewPortHandler.contentRight
             _axisLineSegmentsBuffer[1].y = viewPortHandler.contentTop
-            CGContextStrokeLineSegments(context, _axisLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _axisLineSegmentsBuffer)
         }
 
         if (xAxis.labelPosition == .bottom
@@ -137,7 +137,7 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
             _axisLineSegmentsBuffer[0].y = viewPortHandler.contentBottom
             _axisLineSegmentsBuffer[1].x = viewPortHandler.contentRight
             _axisLineSegmentsBuffer[1].y = viewPortHandler.contentBottom
-            CGContextStrokeLineSegments(context, _axisLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _axisLineSegmentsBuffer)
         }
         
         context.restoreGState()
@@ -260,7 +260,7 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
                 _gridLineSegmentsBuffer[0].y = viewPortHandler.contentTop
                 _gridLineSegmentsBuffer[1].x = position.x
                 _gridLineSegmentsBuffer[1].y = viewPortHandler.contentBottom
-                CGContextStrokeLineSegments(context, _gridLineSegmentsBuffer, 2)
+                context.strokeLineSegments(between: _gridLineSegmentsBuffer)
             }
         }
         
@@ -323,8 +323,8 @@ open class ChartXAxisRenderer: ChartAxisRendererBase
         {
             context.setLineDash(phase: 0.0, lengths: [])
         }
-        
-        CGContextStrokeLineSegments(context, _limitLineSegmentsBuffer, 2)
+
+        context.strokeLineSegments(between: _limitLineSegmentsBuffer)
     }
     
     open func renderLimitLineLabel(context: CGContext, limitLine: ChartLimitLine, position: CGPoint, yOffset: CGFloat)

@@ -181,7 +181,7 @@ open class ChartXAxisRendererHorizontalBarChart: ChartXAxisRendererBarChart
                 _gridLineSegmentsBuffer[0].y = position.y
                 _gridLineSegmentsBuffer[1].x = viewPortHandler.contentRight
                 _gridLineSegmentsBuffer[1].y = position.y
-                CGContextStrokeLineSegments(context, _gridLineSegmentsBuffer, 2)
+                context.strokeLineSegments(between: _gridLineSegmentsBuffer)
             }
         }
         
@@ -220,7 +220,7 @@ open class ChartXAxisRendererHorizontalBarChart: ChartXAxisRendererBarChart
             _axisLineSegmentsBuffer[0].y = viewPortHandler.contentTop
             _axisLineSegmentsBuffer[1].x = viewPortHandler.contentRight
             _axisLineSegmentsBuffer[1].y = viewPortHandler.contentBottom
-            CGContextStrokeLineSegments(context, _axisLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _axisLineSegmentsBuffer)
         }
         
         if (xAxis.labelPosition == .bottom
@@ -231,7 +231,7 @@ open class ChartXAxisRendererHorizontalBarChart: ChartXAxisRendererBarChart
             _axisLineSegmentsBuffer[0].y = viewPortHandler.contentTop
             _axisLineSegmentsBuffer[1].x = viewPortHandler.contentLeft
             _axisLineSegmentsBuffer[1].y = viewPortHandler.contentBottom
-            CGContextStrokeLineSegments(context, _axisLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _axisLineSegmentsBuffer)
         }
         
         context.restoreGState()
@@ -284,8 +284,8 @@ open class ChartXAxisRendererHorizontalBarChart: ChartXAxisRendererBarChart
             {
                 context.setLineDash(phase: 0.0, lengths: [])
             }
-            
-            CGContextStrokeLineSegments(context, _limitLineSegmentsBuffer, 2)
+
+            context.strokeLineSegments(between: _limitLineSegmentsBuffer)
             
             let label = l.label
             

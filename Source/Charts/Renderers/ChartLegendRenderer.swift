@@ -425,7 +425,7 @@ open class ChartLegendRenderer: ChartRendererBase
             _formLineSegmentsBuffer[0].y = y
             _formLineSegmentsBuffer[1].x = x + formsize
             _formLineSegmentsBuffer[1].y = y
-            CGContextStrokeLineSegments(context, _formLineSegmentsBuffer, 2)
+            context.strokeLineSegments(between: _formLineSegmentsBuffer)
         }
     }
 
