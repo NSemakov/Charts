@@ -393,7 +393,7 @@ open class RadarChartRenderer: LineRadarChartRenderer
             }
             
             context.setFillColor(fillColor.cgColor)
-            CGContextEOFillPath(context)
+            context.fillPath(using: .evenOdd)
         }
             
         if let strokeColor = strokeColor

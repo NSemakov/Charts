@@ -553,7 +553,7 @@ open class PieChartRenderer: ChartDataRendererBase
                         y: center.y - holeRadius,
                         width: holeRadius * 2.0,
                         height: holeRadius * 2.0))
-                    CGContextEOFillPath(context)
+                    context.fillPath(using: .evenOdd)
                 }
             }
             
